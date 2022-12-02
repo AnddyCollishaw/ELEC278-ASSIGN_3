@@ -1,1 +1,3 @@
-hello 
+int main(void){
+    
+}
