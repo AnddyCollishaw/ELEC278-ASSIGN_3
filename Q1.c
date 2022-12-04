@@ -12,7 +12,7 @@ void printarrowatposition (int posn)
 	printf ("   V\n");
 }//printarrowatposition()
 
-int array_sorted (int a[], int min, int max, int ascending)
+int array_sorted (int *a, int min, int max, int ascending)
 // Check if portion of array (parameter a) from index min to index max
 // inclusive is sorted. Parameter ascending determines whether check is for
 // ascending order, meaning lower value is in lower index, or descending
@@ -45,7 +45,7 @@ int array_sorted (int a[], int min, int max, int ascending)
 }//array_sorted()
 \
 
-void swap (int a[], int g, int h)
+void swap (int *a, int g, int h)
 // Swap values at locations g and h in array a.
 // If global verbose is set, reports that swap takes place.
 // Global counter swaps is incremented by 1.  User needs to remember to
@@ -57,7 +57,7 @@ void swap (int a[], int g, int h)
 	
 } //swap()  
 
-int partition (int  a[],  int left, int right)
+int partition (int*a,  int left, int right)
 // Using locations a[left..right], partition fragment by picking a[left] as
 // separator value, then working through bottom and top halves of the array,
 // arranging - by swapping values if necessary - that all values smaller than
@@ -88,7 +88,7 @@ int partition (int  a[],  int left, int right)
 }//partition()
 
 
-int * DateSort (int a[],  int left, int right, int size)
+int * DateSort (int *a,  int left, int right, int size)
 {
 	
 	if (left < right)    {
@@ -100,71 +100,63 @@ int * DateSort (int a[],  int left, int right, int size)
 }//DateSort()
 
 
+
 int main(){
 
+int size = 11;
+
+int dates[12][3] = {
+{20, 1, 2014}, {25, 3, 2010}, {3, 12, 1676}, {18, 11, 1982}, {19, 4,
+2015},{ 9, 7, 2015}, {12, 8, 2010}, {30, 8, 2010}, {21, 1, 2014}, {20, 7, 2014},
+{18, 11, 2020}};
+
+printf("Input:\n\n");
+printf("Date arr[] = {");
+for(int i = 0; i<size; i++){
+		printf("{%d, %d, %d},", dates[i][0], dates[i][1], dates[i][2]);
+	}
+	printf("}\n");
+
+int dates2[size]; 
+int b = 0; 
+for(int g = 2; g>-1;g--){
+	for (int i =0; i<size; i++){
+        b = dates[i][g];
+        if(g!=2){
+			dates2[i] = dates2[i]*100+b; 
+		}else{
+        	dates2[i]= b; 
+		}
+    }
+}
 
 
-//testing adding to newtest branch 
-printf("n");
-
-
-printf("g");
 int *dates3;
-int size; 
 
-printf("Enter the Number of dates you want to enter:\n"); 
-scanf("%d", &size); 
-printf("%d", size); 
+dates3=DateSort(dates2,-1, size, size); 
 
-//  int dates[size][3]; 
+for(int g = 0; g<3; g++){
+	for(int i = 0; i<size;i++){
+		if(dates3[i]>9999){
+			dates[i][g]= dates3[i]%100;
+			dates3[i]= round(dates3[i]/100);
+		}else{
+			dates[i][g] = dates3[i];
+		}
+	}
+}
 
-// for(int g = 0; g<size; g++){
-// 	for(int i = 0; i<3; i++){
-// 		scanf("%d\n", &dates[g][i]);
-// 	}
-// }
-
-// // int dates[12][3] = {
-// // {20, 1, 2014}, {25, 3, 2010}, {3, 12, 1676}, {18, 11, 1982}, {19, 4,
-// // 2015},{ 9, 7, 2015}, {12, 8, 2010}, {30, 8, 2010}, {21, 1, 2014}, {20, 7, 2014},
-// // {18, 11, 2020}
-// // };
-
-// int dates2[size]; 
-// int b = 0; 
-// for(int g = 2; g>-1;g--){
-// 	for (int i =0; i<size; i++){
-//         b = dates[i][g];
-//         if(g!=2){
-// 			dates2[i] = dates2[i]*100+b; 
-// 		}else{
-//         	dates2[i]= b; 
-// 		}
-//     }
-// }
+printf("\nOutput:\n\n");
+printf("Date arr[] = {");
 
 
+	
 
-
-// dates3=DateSort(dates2,-1, size, size); 
-
-// for(int g = 0; g<3; g++){
-// 	for(int i = 0; i<size;i++){
-// 		if(dates3[i]>9999){
-// 			dates[i][g]= dates3[i]%100;
-// 			dates3[i]= round(dates3[i]/100);
-// 		}else{
-// 			dates[i][g] = dates3[i];
-// 		}
-// 	}
-// }
-// 	printf("\nDate arr[] = {");
-
-// 	for(int i = 0; i<size; i++){
-// 		printf("{%d, %d, %d},", dates[i][0], dates[i][1], dates[i][2]);
-// 	}
-// 	printf("}\n");
+for(int i = 0; i<size; i++){
+	printf("{%d, %d, %d},", dates[i][0], dates[i][1], dates[i][2]);
+}
+printf("}\n");
 	
 return 0;
 }
-hello 
+
