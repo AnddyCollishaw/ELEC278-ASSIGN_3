@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/andyc/Projects/ELEC_278/ELEC278-ASSIGN_3",
-      "program": "c:/Users/andyc/Projects/ELEC_278/ELEC278-ASSIGN_3/build/Debug/outDebug",
+      "cwd": "c:/Users/andyc/Projects/ELEC278/ELEC278-ASSIGN_3",
+      "program": "c:/Users/andyc/Projects/ELEC278/ELEC278-ASSIGN_3/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
