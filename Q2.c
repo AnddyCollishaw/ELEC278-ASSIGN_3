@@ -1,39 +1,54 @@
+//Q2.c-Assignment 3 Q2 - Collishaw_Andy 
 #include <stdio.h>
 #include <stdlib.h>
 
-
+//defuine the structure of the node 
 typedef struct htnode{
     int key; 
     int value; 
 }Node;
 
+//define the structure of the table 
 typedef struct hashTable{
     Node** items; 
     int size; 
     int count; 
 }Table; 
 
+//global variable for the table 
 Table* table = NULL;
+//variable to kepp track of which index was last used 
 int lastUsed = 0; 
 
+//function to create a node 
 Node* create_node(int key, int value){
+    //allocate mem 
     Node* node = (Node*)malloc(sizeof(Node));
     
+    //set the key and value 
     node->key = key; 
     node->value = value; 
 
+    //return the node 
     return node; 
 }
 
-Table* cache(int capacity){
+//function to create the hash table 
+void cache(int capacity){
+    //allocate mem 
     table = (Table*)malloc(sizeof(Table));
+    //set the size of the table to be the input capaicty 
     table -> size = capacity; 
+    //count starts at zero 
     table -> count = 0; 
+    //set the items to be an array of pointer to dynamic memory 
     table -> items = (Node**)calloc(table->size, sizeof(Node*));
     for(int i=0; i<table->size; i++){
+        //initialize each index in the table as NULL 
         table->items[i]=NULL;
     }
-return table; 
+    //return the table p
+//return table; 
 }
 
 

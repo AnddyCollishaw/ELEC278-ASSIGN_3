@@ -1,115 +1,80 @@
-
-
+//Q1.c-Assignment 3 Q1 - Collishaw_Andy 
+//import libraries 
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 
-void printarrowatposition (int posn)
-// Prints a V - a down arrow - where the pivot value will be
-{
-	int	i;
-	for (i=0; i<posn; i++)		printf ("     ");
-	printf ("   V\n");
-}//printarrowatposition()
-
-int array_sorted (int *a, int min, int max, int ascending)
-// Check if portion of array (parameter a) from index min to index max
-// inclusive is sorted. Parameter ascending determines whether check is for
-// ascending order, meaning lower value is in lower index, or descending
-// order, meaning lower value is in higher index.
-// If msg is not NULL, prints string pointed to by msg on stdout.
-{
-	int		correct = 0;			// either error or unsorted to begin
-
-	// Check first for dumbness
-	if (a != NULL)	{
-		int		i;
-		
-		for (i=min; i<max; i++)	{
-			// data in higher index position should be equal or higher value
-			// when array is sorted in ascending order, and should be equal
-			// or lower value when array is sorted in descending order.
-			// (Note use of C's conditional evaluation.) Variable correct
-			// will be true if order OK, and false if order wrong.
-			if ((ascending  && (a[i] > a[i+1])) ||
-				(!ascending && (a[i] < a[i+1])))	{
-				// found two out of order - therefore it is unsorted
-				return 0;
-				}
-			}//endfor
-		// Get to this point only because we did not detect an out of order
-	correct = 1;
-	}
-	return correct;
-
-}//array_sorted()
-\
-
+//function that takes an array and two indexes and swaps them 
 void swap (int *a, int g, int h)
-// Swap values at locations g and h in array a.
-// If global verbose is set, reports that swap takes place.
-// Global counter swaps is incremented by 1.  User needs to remember to
-// reset swaps before starting code that swap count is required.
+
 {
-	int  t = a[g];		// temporary to hold one value being swapped
+	//set temporary int to hold 1 value 
+	int  t = a[g];		
+	//set the index that was given to temmp as the otehr value 
 	a[g] = a[h];
+	//set temp to the opposite index 
 	a[h] = t;
 	
-} //swap()  
+}
 
 int partition (int*a,  int left, int right)
-// Using locations a[left..right], partition fragment by picking a[left] as
-// separator value, then working through bottom and top halves of the array,
-// arranging - by swapping values if necessary - that all values smaller than
-// the separator value are in the bottom part and all values larger are in
-// the top part.
+
 {
+	//initialize neccisary variables
 	int	ll, rr, pivotval;
 	ll = left+1;
 	rr = right;
-	// choose pivot to be leftmost location
+	//pivotval is the smaller index (left)
 	pivotval = a[left];
+	//while the left index doesnt cross the right index 
     while (ll < rr)	{
-		// if one on left less than pivot, leave it alone
+		//if the left index value is less then the pivot value that is good so keep going 
 		if(a[ll] <= pivotval)	{ ll++; continue;}
-		// if one on right greater than pivot, leave it
+		// if the right value is greater then then pivot value that is good kepp going 
         if(a[rr] > pivotval)	{ rr--; continue;}
-		// both left and right on wrong side - swap them
+		// call swap to swap the left value and the right value 
 		swap(a, ll, rr);
-       	}//endwhile
-	// we stop when rr and ll collide. Place pivot value such that everything
-	// to left is less and everything to right is same or greater.
+       	}
+	//after the left value crosses the right value 
 	if (a[ll] < pivotval)	{
+		//if the left value is less then pivot value swap the left value with original left which is the start index of the array 
 		swap(a, ll, left);
+		//otherwise swap the value below left to the orginal value 
 	} else	{
 		swap(a, --ll, left);
 		}
+		//return the left value 
 	return ll;
-}//partition()
+}
 
-
+//quicksort function to sort the dates 
 int * DateSort (int *a,  int left, int right, int size)
 {
-	
+	//while left is less then right 
 	if (left < right)    {
+		//the pivot index is the returned left value
 		int  pivotndx = partition (a, left, right);
+		//go through reccursively untill all in order 
 		DateSort (a, left, pivotndx-1,size);
 		DateSort (a, pivotndx+1, right,size);
 		}
+		//return the array 
 	return a;
-}//DateSort()
+}
 
 
 
 int main(){
-
+//size of the array 
 int size = 11;
 
+//date array 
 int dates[12][3] = {
 {20, 1, 2014}, {25, 3, 2010}, {3, 12, 1676}, {18, 11, 1982}, {19, 4,
 2015},{ 9, 7, 2015}, {12, 8, 2010}, {30, 8, 2010}, {21, 1, 2014}, {20, 7, 2014},
 {18, 11, 2020}};
 
+//print the unsorted array 
 printf("Input:\n\n");
 printf("Date arr[] = {");
 for(int i = 0; i<size; i++){
@@ -117,8 +82,11 @@ for(int i = 0; i<size; i++){
 	}
 	printf("}\n");
 
+//temp array 
 int dates2[size]; 
+//temp int to hold value at index 
 int b = 0; 
+//this turns the 2d array into a 1d array by making and int of yearmonthday
 for(int g = 2; g>-1;g--){
 	for (int i =0; i<size; i++){
         b = dates[i][g];
@@ -130,11 +98,13 @@ for(int g = 2; g>-1;g--){
     }
 }
 
-
+//anotha one 
 int *dates3;
 
+//sort the single int array and put it in the new one 
 dates3=DateSort(dates2,-1, size, size); 
 
+//undo the signle intefiying process 
 for(int g = 0; g<3; g++){
 	for(int i = 0; i<size;i++){
 		if(dates3[i]>9999){
@@ -146,12 +116,9 @@ for(int g = 0; g<3; g++){
 	}
 }
 
+//print the outpuit 
 printf("\nOutput:\n\n");
 printf("Date arr[] = {");
-
-
-	
-
 for(int i = 0; i<size; i++){
 	printf("{%d, %d, %d},", dates[i][0], dates[i][1], dates[i][2]);
 }
